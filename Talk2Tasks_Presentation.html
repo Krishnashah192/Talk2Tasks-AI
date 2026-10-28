@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talk2Tasks AI — Presentation Deck</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    body {
+      background-color: #0f172a;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    .deck-container {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 45px 55px;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .slide.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      color: #2563eb;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+    .slide-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+    .slide-subtitle {
+      font-size: 15px;
+      color: #2563eb;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .slide-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      flex: 1;
+      margin-top: 20px;
+    }
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      transition: transform 0.2s;
+    }
+    .card-item:hover {
+      transform: translateY(-2px);
+      border-color: #93c5fd;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.4;
+    }
+    .image-preview {
+      width: 100%;
+      height: 100%;
+      max-height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    /* Controls Bar */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 15px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    .btn-nav {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #ffffff;
+    }
+    .speaker-notes-box {
+      width: 100%;
+      max-width: 1200px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 15px;
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .notes-header {
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-container" id="presentationContainer">
+    <!-- SLIDE 1 -->
+    <div class="slide active" id="slide-1">
+      <div>
+        <span class="pill-badge">GenAI Project • Desktop AI</span>
+        <h1 class="slide-title" style="font-size: 42px;">Talk2Tasks AI</h1>
+        <p class="slide-subtitle" style="font-size: 20px;">Privacy-First Desktop Meeting Intelligence & Live Multilingual AI Companion</p>
+      </div>
+      <div class="slide-body">
+        <div class="text-content">
+          <div class="card-item">
+            <div class="card-title">🛡️ 100% Zero-Bot Stealth</div>
+            <div class="card-desc">No external bots joining calls. Captures dual-stream system and microphone audio directly from your desktop.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">🌐 Automatic Multi-Language Detection</div>
+            <div class="card-desc">Faster-Whisper automatically detects 99+ languages (English, Hindi, Spanish, Hinglish) without sending audio to cloud servers.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">⚡ Custom NVIDIA NIM & Local AI Engine</div>
+            <div class="card-desc">User-chosen open-source models (Llama 3.3 70B, Qwen 2.5 72B, DeepSeek R1) + 100% offline Ollama and deterministic rule engine.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">🐾 Interactive Floating Mascot (Talki)</div>
+            <div class="card-desc">Transparent co-pilot hovers over Google Meet / Zoom with audio-reactive pulses and real-time speech bubble alerts.</div>
+          </div>
+        </div>
+        <div class="image-preview">
+          <img src="presentation_assets/slide1_mascot.jpg" alt="Talki AI Mascot" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide" id="slide-2">
+      <div>
+        <span class="pill-badge">The Problem</span>
+        <h1 class="slide-title">The Meeting Dilemma: Security & Privacy Bottlenecks</h1>
+        <p class="slide-subtitle">Why traditional cloud meeting bots fail modern corporate teams</p>
+      </div>
+      <div class="slide-body">
+        <div class="text-content">
+          <div class="card-item">
+            <div class="card-title">🛑 Cloud Bots Blocked by Security Policies</div>
+            <div class="card-desc">Enterprise IT and confidential client calls actively ban external bot attendees like Otter, Fireflies, and Read.ai.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">📉 Note-Taking Fatigue & Missed Deliverables</div>
+            <div class="card-desc">Taking notes distracts attendees from active discussions. Over 67% of spoken commitments are never formally recorded.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">🌐 Multilingual Communication Breakdown</div>
+            <div class="card-desc">Global teams naturally code-switch (e.g. Hindi, Hinglish, Spanish). Traditional English-only tools garble or drop sentences.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">🔒 Uncontrolled Cloud Audio Leakage</div>
+            <div class="card-desc">Sensitive proprietary discussions stored on 3rd-party servers pose compliance and confidentiality breaches.</div>
+          </div>
+        </div>
+        <div class="image-preview">
+          <img src="presentation_assets/slide2_comparison.png" alt="Comparison: Traditional Bots vs Talk2Tasks AI" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide" id="slide-3">
+      <div>
+        <span class="pill-badge">Technical Architecture</span>
+        <h1 class="slide-title">Edge-Audio & Dual-AI Pipeline</h1>
+        <p class="slide-subtitle">Ultra-low latency, zero-hallucination, 100% privacy-first system design</p>
+      </div>
+      <div class="slide-body">
+        <div class="text-content">
+          <div class="card-item">
+            <div class="card-title">🎙️ Dual-Stream Audio Loopback</div>
+            <div class="card-desc">Captures meeting audio (WASAPI system loopback) + user microphone with real-time Web Audio API mixing and decibel metering.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">⚡ Faster-Whisper Multilingual STT</div>
+            <div class="card-desc">CTranslate2 INT8 engine runs on-device. Audio sliced in 5s increments with native multi-language auto-detection.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">🧠 Flexible LLM Routing</div>
+            <div class="card-desc">Free NVIDIA NIM cloud inference (Llama 3.3 70B) with persistent credentials + offline Ollama + deterministic rule engine.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">💻 Clean Desktop GUI</div>
+            <div class="card-desc">Electron + React 18 + Tailwind v4 + FastAPI SQLite async storage with instant Markdown and email export.</div>
+          </div>
+        </div>
+        <div class="image-preview">
+          <img src="presentation_assets/slide3_architecture.png" alt="System Architecture Flow" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide" id="slide-4">
+      <div>
+        <span class="pill-badge">Live Assistant</span>
+        <h1 class="slide-title">Live In-Meeting Multilingual Assistant</h1>
+        <p class="slide-subtitle">Instant speech recognition, language detection, and grounded Q&A co-pilot</p>
+      </div>
+      <div class="slide-body">
+        <div class="text-content">
+          <div class="card-item">
+            <div class="card-title">🌐 Automatic Multi-Language Detection</div>
+            <div class="card-desc">Instant real-time pill badge displays detected language (e.g. Hindi 98%, English 99%), handling code-switched speech natively.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">📊 Dual Reactive Audio Visualizer</div>
+            <div class="card-desc">Live decibel meters verify both user microphone and remote participant voices are actively capturing.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">⚡ Instant Action Item & Decision Alerts</div>
+            <div class="card-desc">Extracts tasks, assigned owners, and deadlines on-the-fly while participants speak.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">💬 Grounded Conversational Q&A</div>
+            <div class="card-desc">Ask questions during meetings (e.g. "What did Rahul promise?") and receive answers strictly cited from transcript quotes.</div>
+          </div>
+        </div>
+        <div class="image-preview">
+          <img src="presentation_assets/slide4_live_assistant.png" alt="Live Meeting Assistant UI" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide" id="slide-5">
+      <div>
+        <span class="pill-badge">Desktop Companion</span>
+        <h1 class="slide-title">Talki: The Transparent Interactive Desktop Mascot</h1>
+        <p class="slide-subtitle">A lightweight co-pilot hovering over Google Meet, Zoom, or Teams</p>
+      </div>
+      <div class="slide-body">
+        <div class="text-content">
+          <div class="card-item">
+            <div class="card-title">🪟 True Borderless Transparent Presence</div>
+            <div class="card-desc">No rectangular backgrounds. Only the cute mascot, speech bubbles, and controls float gracefully over your meeting.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">🎭 Dynamic 4-State Animation Engine</div>
+            <div class="card-desc">Idle breathing, Listening blue pulse, Thinking yellow analysis gears, and Alerting purple speech bubble.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">💬 In-Meeting Speech Bubble Alerts</div>
+            <div class="card-desc">Pops up notification speech bubbles when high-priority tasks, deadlines, or decisions are verbalized.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">⚡ Glassmorphic Quick Controls Dock</div>
+            <div class="card-desc">Hover to reveal End Recording, Go to Dashboard, View Live Transcript, and Q&A buttons without tab switching.</div>
+          </div>
+        </div>
+        <div class="image-preview">
+          <img src="presentation_assets/slide5_mascot.png" alt="Mascot States & Floating Dock" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide" id="slide-6">
+      <div>
+        <span class="pill-badge">Outcomes & Roadmap</span>
+        <h1 class="slide-title">Automated Deliverables & Enterprise Value</h1>
+        <p class="slide-subtitle">Instant executive recaps, action items, and 1-click email follow-ups</p>
+      </div>
+      <div class="slide-body">
+        <div class="text-content">
+          <div class="card-item">
+            <div class="card-title">✉️ 1-Click Executive Email Follow-Up</div>
+            <div class="card-desc">Pre-composes structured emails summarizing decisions, assigned action items, and next steps ready to send in 1 click.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">📋 Action Items Table with Confidence</div>
+            <div class="card-desc">Extracts task descriptions, assigned owners, deadlines, and verbatim quotes with confidence scores.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">⏱️ 80% Reduction in Post-Meeting Admin</div>
+            <div class="card-desc">Eliminates manual minutes-of-meeting drafting, ensuring zero commitments are lost.</div>
+          </div>
+          <div class="card-item">
+            <div class="card-title">🚀 Future Roadmap</div>
+            <div class="card-desc">Speaker Diarization (voiceprints), direct Jira/Linear/Slack sync, and automatic calendar event listeners.</div>
+          </div>
+        </div>
+        <div class="image-preview">
+          <img src="presentation_assets/slide6_outcomes.png" alt="Deliverables: Tasks Table & Email Draft" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="btn-nav" id="prevBtn" onclick="changeSlide(-1)">◀ Previous Slide</button>
+    <span id="slideIndicator">Slide 1 of 6</span>
+    <button class="btn-nav" id="nextBtn" onclick="changeSlide(1)">Next Slide ▶</button>
+  </div>
+
+  <!-- SPEAKER NOTES -->
+  <div class="speaker-notes-box">
+    <div class="notes-header">🎙️ Presenter Script & Speaker Notes</div>
+    <div id="notesContent">Loading speaker notes...</div>
+  </div>
+
+  <script>
+    const speakerNotes = [
+      "Welcome everyone. Today I'm excited to present Talk2Tasks AI, a privacy-first desktop meeting intelligence platform. Unlike traditional meeting recorders that require invasive cloud bots to join calls, Talk2Tasks AI runs natively on your desktop. It captures dual audio, transcribes multilingual conversations with Faster-Whisper, and extracts actionable commitments in real time.",
+      "Here we see why traditional solutions like Otter or Fireflies fail in modern enterprises. They rely on bots that clients and IT security block. Furthermore, global meetings involve multilingual code-switching. Talk2Tasks solves this by capturing system audio directly with zero bots, protecting privacy, and supporting 99+ languages.",
+      "This slide illustrates our 5-tier architecture. First, the dual-stream mixer captures both system loopback and mic audio. Next, Faster-Whisper transcribes speech locally in 5-second slices with automatic multi-language detection. Finally, our LLM engine parses transcript segments into structured notes, tasks, and follow-up emails.",
+      "Here you can see the Live Assistant screen. The dual audio meters confirm that both meeting participants and the user's voice are capturing. Notice the blue language badge confirming automatic multilingual detection. On the right, action items and decisions appear instantly while the meeting is ongoing.",
+      "Talki is our interactive desktop mascot. Instead of an ugly rectangular app window, Talki is a transparent companion. It reacts to participant voices with a blue listening pulse, and pops up speech bubbles whenever someone commits to a deliverable. Users can control their recording with one-click transparent dock buttons.",
+      "In conclusion, Talk2Tasks AI delivers actionable outcomes immediately after a meeting ends. Teams save an average of 80% on post-meeting documentation time. With enterprise privacy, zero bots, and multilingual support, Talk2Tasks AI is the future of intelligent desktop collaboration."
+    ];
+
+    let currentSlide = 1;
+    const totalSlides = 6;
+
+    function updateSlide() {
+      document.querySelectorAll('.slide').forEach((el, idx) => {
+        el.classList.toggle('active', idx + 1 === currentSlide);
+      });
+      document.getElementById('slideIndicator').textContent = `Slide ${currentSlide} of ${totalSlides}`;
+      document.getElementById('notesContent').textContent = speakerNotes[currentSlide - 1];
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 1) currentSlide = 1;
+      if (currentSlide > totalSlides) currentSlide = totalSlides;
+      updateSlide();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+
+    updateSlide();
+  </script>
+</body>
+</html>
